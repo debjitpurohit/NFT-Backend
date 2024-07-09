@@ -6,11 +6,6 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(express.json());
-app.use(cors({
-    origin: "https://nft-minter-mu-nine.vercel.app", 
-    methods:["GET" , "POST","PUT","DELETE"],
-    credentials: true, 
-}))
 ////file size must be less than 1000000 bytes
 const upload = multer({
     limits: {
@@ -25,7 +20,11 @@ const starton = axios.create({
         "x-api-key": "sk_live_0fc5a74d-ae12-4269-be20-a7faacf5489a",
     },
   })
-  app.post('/upload',cors(),upload.single('file'),async(req,res)=>{
+  app.post('/upload',cors({
+    origin: "https://nft-minter-mu-nine.vercel.app", 
+    methods:["GET" , "POST","PUT","DELETE"],
+    credentials: true, 
+}),upload.single('file'),async(req,res)=>{
    
     let data = new FormData();
     const blob = new Blob([req.file.buffer],{type:req.file.mimetype});
