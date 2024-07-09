@@ -6,6 +6,11 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(express.json());
+app.use(cors({
+    origin: "https://nft-minter-mu-nine.vercel.app", 
+    methods:["GET" , "POST","PUT","DELETE"],
+    credentials: true, 
+}))
 ////file size must be less than 1000000 bytes
 const upload = multer({
     limits: {
